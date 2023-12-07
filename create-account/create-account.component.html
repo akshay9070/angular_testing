@@ -1,0 +1,109 @@
+<div class="container" [ngClass]="{'entireForm': !formSubmitted}">
+  
+  <form #customerForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="!formSubmitted; else displayMessage">
+   <h4>REGISTER USER DETAILS FOR OPENING BANK ACCOUNT</h4><br>
+    <div class="form-group mb-3">   
+      <label for="firstName">First Name</label>
+      <input type="text" class="form-control" id="firstName" [(ngModel)]="customer.firstName" name="firstName" #firstName="ngModel" required pattern="[a-zA-Z]+">
+      <div *ngIf="firstName.errors?.['required'] && firstName.touched" class="text-danger">
+        <span>First Name is required.</span>
+      </div>
+      <div *ngIf="firstName.errors?.['pattern'] && firstName.touched" class="text-danger">
+        <span>First Name must contain only alphabetical characters.</span>
+      </div>
+      </div>
+    
+
+    <div class="form-group mb-3">
+      <label for="lastName">Last Name</label>
+      <input type="text" class="form-control" id="lastName" [(ngModel)]="customer.lastName" name="lastName" #lastName="ngModel" required pattern="[a-zA-Z]+">
+      <div *ngIf="lastName.errors?.['required'] && lastName.touched" class="text-danger">
+        <span>Last Name is required.</span>
+
+      </div>
+      <div *ngIf="lastName.errors?.['pattern'] && lastName.touched" class="text-danger">
+        <span>Last Name must contain only alphabetical characters.</span>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="country">Country</label>
+      <input type="text" class="form-control" id="country" [(ngModel)]="customer.country" name="country" #country="ngModel" required pattern="[a-zA-Z]+">
+      <div *ngIf="country.errors?.['required'] && country.touched" class="text-danger">
+        <span>Country Name is required.</span>
+      </div>
+      <div *ngIf="country.errors?.['pattern'] && country.touched" class="text-danger">
+        <span>Country Name must contain only alphabetical characters.</span>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="address">Address</label>
+      <textarea  rows="4" cols="50" class="form-control" id="address" [(ngModel)]="customer.address" name="address" #address="ngModel" required></textarea>
+      <div *ngIf="address.invalid &&  address.touched">
+        <span style="color: red;">Address is required.</span>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="mobileNumber">Mobile Number</label>
+      <input type="text" class="form-control" id="mobileNumber" [(ngModel)]="customer.mobileNumber" #mobile="ngModel" name="mobileNumber" required pattern="[0-9]{10}">
+      <div *ngIf="mobile.errors?.['required'] && mobile.touched" class="text-danger">
+        Mobile Number is required.
+      </div>
+      <div *ngIf="mobile.errors?.['pattern'] && mobile.touched" class="text-danger">
+        Mobile Number must be a 10-digit number.
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="dateOfBirth">Date of Birth</label>
+      <input type="date" class="form-control" id="dateOfBirth" [(ngModel)]="customer.DOB" #DOB="ngModel" name="DOB" required>
+      <div *ngIf="DOB.invalid &&  DOB.touched">
+       <span style="color: red;">Please Enter Date of Birth</span>
+      </div>
+    </div>
+
+    <div class="form-group mb-2">
+      <label for="emailAddress">Email Address</label>
+      <input type="email" class="form-control" id="emailAddress" [(ngModel)]="customer.email" #email="ngModel" name="Email" required email>
+      <div *ngIf="email.errors?.['required'] && email.touched" class="text-danger">
+        Email Address is required.
+      </div>
+      <div *ngIf="email.errors?.['email'] && email.touched" class="text-danger">
+        Please enter a valid email address.
+      </div>
+    </div><br>
+
+<div class="form-group mb-3 location">
+  <button type="submit" class="submitbtn me-5"  [style.background-color]="customerForm.valid ? 'rgb(89, 181, 93)' : 'rgb(136,136,136)'"[disabled]="!customerForm.valid">Create Account</button>
+  <button type="reset" class="clearbtn" (click)="onClear()">Clear</button>
+
+</div>
+
+  </form>
+</div>
+
+
+<ng-template #displayMessage >
+
+  <div *ngIf="!showErrorMsg" class="accountCreated ">
+  <h2>Account Created !</h2><br>
+  <h4>Note : KYC is Pending. <br>Please Initiate KYC For Customer</h4><br>
+  <h5>The mobile number requiredfor kyc proccess : {{response_data}}</h5><br>
+    <button class="submitbtn location" (click)="onShowForm()">Back</button>
+  </div>
+
+  
+  <div *ngIf="showErrorMsg" class="error-message ">
+    <h4>CAN'T CREATE ACCOUNT !</h4><br>
+    <h4>Reason:{{response_data}}</h4><br>
+
+    <button class="submitbtn location" (click)="onShowForm()">Back</button>
+  </div>
+
+
+  
+
+</ng-template>
+
