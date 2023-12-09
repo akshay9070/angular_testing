@@ -1,0 +1,72 @@
+import { ComponentFixture, TestBed, async, fakeAsync, tick } from '@angular/core/testing';
+
+import { CreateAccountComponent } from './create-account.component';
+import { BankApiService } from '../service/bank-api.service';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
+describe('CreateAccountComponent', () => {
+  let component: CreateAccountComponent;
+  let fixture: ComponentFixture<CreateAccountComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [CreateAccountComponent],
+      imports: [HttpClientTestingModule,FormsModule],
+      providers:[BankApiService]
+    });
+    fixture = TestBed.createComponent(CreateAccountComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  //this added
+   it('should call onClear() method when the Clear button is clicked',  () => {
+     spyOn(component, 'onClear');
+
+     const button = fixture.debugElement.query(By.css('#clearbtn1'));
+     button.nativeElement.click();
+
+     expect(component.onClear).toHaveBeenCalled();
+   });
+
+   it('should call onClear() method when the Clear button is clicked',  () => {
+    spyOn(component, 'onClear');
+
+    const button = fixture.debugElement.query(By.css('#clearbtn1'));
+    button.nativeElement.click();
+
+    expect(component.onClear).toHaveBeenCalled();
+  });
+
+
+
+  
+  //  it('should display error message for invalid form fields', fakeAsync(() => {
+  //    expect(component.customerForm).toBeDefined();
+  //    const a = fixture.debugElement.query(By.css('firstName'));
+  //    a.
+
+  //    if (component.customerForm) {
+  //      component.customerForm.controls['firstName'].setValue('John');
+  //      component.customerForm.controls['lastName'].setValue('Doe');
+  //    }
+
+  //  }));
+
+  // it("form",async(()=>{
+  //   fixture.detectChanges;
+
+  //   fixture.whenStable().then(()=>{
+
+  //     let email = component.fff.controls['firstName'].setValue('John');
+  //   })
+  // }));
+
+});
